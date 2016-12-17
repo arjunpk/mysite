@@ -17,7 +17,7 @@ class Albums(models.Model):
   
 class Photos(models.Model):
   user = models.ForeignKey(User)
-  album = models.ForeignKey(Album)
+  album = models.ForeignKey(Albums)
   photo_title = models.CharField(max_length=50, blank=True)
   photo_desc = models.CharField(max_length=150, blank=True)
   original_image = models.CharField(max_length=100, blank=True)
@@ -31,7 +31,7 @@ class Photos(models.Model):
 
 class Videos(models.Model):
   user = models.ForeignKey(User)
-  album = models.ForeignKey(Album)
+  album = models.ForeignKey(Albums)
   video_title = models.CharField(max_length=50, blank=True)
   video_desc = models.CharField(max_length=150, blank=True)
   original_video = models.CharField(max_length=100, blank=True)
