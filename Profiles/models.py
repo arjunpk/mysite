@@ -61,18 +61,19 @@ class Profile(models.Model):
 	user_type = models.PositiveSmallIntegerField('user type',
 						     choices=USER_TYPE_CHOICES,
 						     blank=False,
-						     null=False)
-	start_price_range = models.IntegerField()
-	end_price_range = models.IntegerField()
-	fb_profile_connected = models.BooleanField()
+						     null=False,
+						     default=4)
+	start_price_range = models.IntegerField(blank=True, null=True)
+	end_price_range = models.IntegerField(blank=True, null=True)
+	fb_profile_connected = models.BooleanField(default=False, blank=False, null=False)
 	fb_profile = models.CharField(max_length=500, blank=True)
-	fb_page_connected = models.BooleanField()
+	fb_page_connected = models.BooleanField(default=False, blank=False, null=False)
 	fb_page = models.CharField(max_length=500, blank=True)
-	tw_profile_connected = models.BooleanField()
+	tw_profile_connected = models.BooleanField(default=False, blank=False, null=False)
 	tw_profile = models.CharField(max_length=500, blank=True)
-	ig_profile_connected = models.BooleanField()
+	ig_profile_connected = models.BooleanField(default=False, blank=False, null=False)
 	ig_profile = models.CharField(max_length=500, blank=True)
-	email_confirmed = models.BooleanField()
+	email_confirmed = models.BooleanField(default=False, blank=False, null=False)
 	follows = models.ManyToManyField(User, related_name='followed_by')
 	blocked = models.ManyToManyField(User, related_name='blocked_by')
 	
