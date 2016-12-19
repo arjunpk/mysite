@@ -12,7 +12,8 @@ class Albums(models.Model):
   share_to_fb = models.BooleanField()
   has_photos = models.BooleanField()
   total_media = models.IntegerField()
-  create_date = models.DateTimeField()
+  create_date = models.DateTimeField(auto_now_add=True)
+  update_date = models.DateTimeField(auto_now=True)
   
   
 class Media(models.Model):
@@ -31,6 +32,7 @@ class Media(models.Model):
   orig_extension = models.CharField(max_length=5, blank=False)
   #If image is imported from social network, we do not need to store the original image or resize them.
   #Unless we allow import from 500px if possible and if 500px gives larger file formats
+  #Need to change to File Field
   original_media_file = models.CharField(max_length=100, blank=True)
   display_media_file = models.CharField(max_length=100, blank=False)
   thumb_media_file = models.CharField(max_length=100, blank=False)
@@ -39,6 +41,8 @@ class Media(models.Model):
   share_to_ig = models.BooleanField()
   up_votes = models.IntegerField()
   down_votes = models.IntegerField()
+  create_date = models.DateTimeField(auto_now_add=True)
+  update_date = models.DateTimeField(auto_now=True)
 
 class Media_alt_Res(models.Model):
   """This class holds media in alternative resolutions. The main class stores the default resolution for the website.
@@ -54,11 +58,19 @@ class Media_alt_Res(models.Model):
                                                 blank=False,
                                                 null=False)
   media_file = models.CharField(max_length=100, blank=False)
+  create_date = models.DateTimeField(auto_now_add=True)
+  update_date = models.DateTimeField(auto_now=True)
   
 class Media_Reports(models.Model):
   """Placeholder. Needs to be modified. This class holds the reports on the media by users for violation of Terms of Use"""
   media = models.ForeignKey(Media)
   report = models.CharField(max_length=1000)
+  reported_by=models.ForeignKey(User, related_name='Reported By')
+  action_taken = models.BooleanField()
+  action_desc = models.CharField(max_length=1000)
+  action_taken_by=models.ForeignKey(User, related_name='Action Taken By')
+  create_date = models.DateTimeField(auto_now_add=True)
+  update_date = models.DateTimeField(auto_now=True)
   
 
 
