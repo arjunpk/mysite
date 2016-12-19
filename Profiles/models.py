@@ -14,9 +14,9 @@ class Categories(models.Model):
 		(2, 'Service Provider'),
 	)
 	user_type = models.PositiveSmallIntegerField('user type',
-												choices=USER_TYPE_CHOICES,
-												blank=False,
-												null=False)
+						     choices=USER_TYPE_CHOICES,
+						     blank=False,
+						     null=False)
 	
 class Countries(models.Model):
 	country_code = models.CharField(max_length=2, blank=False)
@@ -49,9 +49,9 @@ class Profile(models.Model):
 		(2, 'Female'),
 	)
 	gender = models.PositiveSmallIntegerField('gender',
-												choices=GENDER_CHOICES,
-												blank=True,
-												null=True)
+						  choices=GENDER_CHOICES,
+						  blank=True,
+						  null=True)
 	USER_TYPE_CHOICES = (
 		(1, 'Photographer'),
 		(2, 'Service Provider'),
@@ -59,9 +59,9 @@ class Profile(models.Model):
 		(4, 'Explore Mode'),
 	)
 	user_type = models.PositiveSmallIntegerField('user type',
-												choices=USER_TYPE_CHOICES,
-												blank=False,
-												null=False)
+						     choices=USER_TYPE_CHOICES,
+						     blank=False,
+						     null=False)
 	start_price_range = models.IntegerField()
 	end_price_range = models.IntegerField()
 	fb_profile_connected = models.BooleanField()
