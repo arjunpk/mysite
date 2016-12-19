@@ -5,9 +5,9 @@ from Profiles.models import Profiles
 class CreateBasicUserForm(ModelForm):
   class Meta:
     model = User
-    fields = { email, first_name, last_name }
+    fields = { 'email', 'first_name', 'last_name' }
 
 class SelectUserTypeForm(ModelForm):
   class Meta:
     model = Profiles
-    fields = { user_type }
+    fields = { 'user_type' }
