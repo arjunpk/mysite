@@ -7,12 +7,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 def index(request):
-  return HttpResponse()
-  #Placeholder - Redirect to homepage here
-
+  redirect('/')
   
-
-
 def change_password(request):
   if request.method == 'POST':
     form = PasswordChangeForm(request.user, request.POST)
