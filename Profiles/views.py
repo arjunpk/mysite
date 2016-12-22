@@ -45,3 +45,7 @@ def update_profile(request):
     'user_form': user_form,
     'profile_form': profile_form
   })
+
+@transaction.atomic
+def detail(request, user_name_id):
+  redirect('/')
