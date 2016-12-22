@@ -5,7 +5,7 @@ urlpatterns=[
   #/profile
   url(r'^$', views.index, name='index'),
   #/profile/<uid/username>
-  url(r'^(?P<user_name_id>[A-Za-z0-9_]+)$', views.detail, name='user_profile'),
+  url(r'^(?P<user_name_id>[A-Za-z0-9_]+)/$', views.detail, name='user_profile'),
   #/profile/<uid/username>/album
   url(r'^(?P<user_name_id>[A-Za-z0-9_]+)/album/', include('media.urls')),
   #/profile/reset_password
