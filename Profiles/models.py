@@ -77,6 +77,7 @@ class Profile(models.Model):
 	email_confirmed = models.BooleanField(default=False, blank=False, null=False)
 	follows = models.ManyToManyField(User, related_name='followed_by')
 	blocked = models.ManyToManyField(User, related_name='blocked_by')
+	uid = models.CharField(max_length=20, unique=True, default=None)
 	
 	
 """	
@@ -93,15 +94,23 @@ In [5]: chris.userprofile.followed_by.all() # list of userprofiles of users that
 Out[5]: [<UserProfile: tim>]
 
 """
+	def __unicode__(self):
+		return [self.user.id, self.uid]
 	
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-	if created:
-		Profile.objects.create(user=instance)
+	def get_absolute_url(self):
+		return reverse('profile:detail', kwargs={'pk': self.uid})
+	
+	@receiver(post_save, sender=User)
+	def create_user_profile(sender, instance, created, **kwargs):
+		if created:
+			Profile.objects.create(user=instance)
+			
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-	instance.profile.save()
+	@receiver(post_save, sender=User)
+	def save_user_profile(sender, instance, **kwargs):
+		if instance.profile.uid is None:
+			instance.profile.uid=uuid.uuid1().int>>64
+		instance.profile.save()
 """
 @property 
 def percentage_complete(self):
