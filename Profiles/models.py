@@ -40,6 +40,7 @@ class ZipCodes(models.Model):
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	uid = models.CharField(max_length=20, unique=True, default=None)
 	bio = models.CharField(max_length=500, blank=True)
 	tag_line = models.CharField(max_length=100, blank=True)
 	city = models.ForeignKey(Cities)
@@ -66,6 +67,7 @@ class Profile(models.Model):
 						     default=4)
 	start_price_range = models.IntegerField(blank=True, null=True)
 	end_price_range = models.IntegerField(blank=True, null=True)
+	profile_views = models.IntegerField(blank=False, default=0)
 	fb_profile_connected = models.BooleanField(default=False, blank=False, null=False)
 	fb_profile = models.CharField(max_length=500, blank=True)
 	fb_page_connected = models.BooleanField(default=False, blank=False, null=False)
@@ -77,7 +79,7 @@ class Profile(models.Model):
 	email_confirmed = models.BooleanField(default=False, blank=False, null=False)
 	follows = models.ManyToManyField(User, related_name='followed_by')
 	blocked = models.ManyToManyField(User, related_name='blocked_by')
-	uid = models.CharField(max_length=20, unique=True, default=None)
+	
 	
 	
 """	
