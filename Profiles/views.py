@@ -3,6 +3,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from .models import Categories, Countries, States, Cities, ZipCodes, Profile
+from django.contrib.auth.models import User
 
 # Create your views here.
 from django.http import HttpResponse
@@ -49,4 +50,10 @@ def update_profile(request):
 
 @transaction.atomic
 def detail(request, user_name_id):
-  redirect('/')
+  user = User.objects.filter(username=user_name_id).select_related('profile')
+  if not user:
+    user = User.objects.all().select_related('profile').filter(uid=user_name_id)
+  if user:
+    render('profiles/user_profile.html')
+  else:
+    raise Http404
