@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from .models import Categories, Countries, States, Cities, ZipCodes, Profile
 from django.contrib.auth.models import User
+from django.template import loader
 
 # Create your views here.
 from django.http import HttpResponse
