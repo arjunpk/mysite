@@ -5,12 +5,12 @@ from django.shortcuts import render, redirect
 from .models import Categories, Countries, States, Cities, ZipCodes, Profile
 from django.contrib.auth.models import User
 from django.template import loader
+from django.http import HttpResponse, Http404
 
-# Create your views here.
-from django.http import HttpResponse
+
 
 def index(request):
-  redirect('/')
+  return Http404
   
 def change_password(request):
   if request.method == 'POST':
@@ -27,9 +27,9 @@ def change_password(request):
   return render(request, 'profiles/change_password.html', {
     'form': form
   })
-
-@login_required
-@transaction.atomic
+"""
+# @login_required
+# @transaction.atomic """
 def update_profile(request):
   if request.method == 'POST':
     user_form = UserForm(request.POST, instance=request.user)
@@ -49,12 +49,18 @@ def update_profile(request):
     'profile_form': profile_form
   })
 
-@transaction.atomic
+"""
+# @transaction.atomic"""
 def detail(request, user_name_id):
-  user = User.objects.filter(username=user_name_id).select_related('profile')
-  if not user:
-    user = User.objects.all().select_related('profile').filter(uid=user_name_id)
-  if user:
-    render('profiles/user_profile.html')
-  else:
-    raise Http404
+    try:
+        user = User.objects.filter(username=user_name_id).select_related('profile')
+    except User.DoesNotExist:
+        try:
+            user = User.objects.all().select_related('profile').filter(uid=user_name_id)
+        except User.DoesNotExist:
+            raise Http404
+    context={
+        "user" : user,
+    }
+    return render(request,'profiles/user_profile.html')
+

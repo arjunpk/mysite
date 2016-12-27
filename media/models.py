@@ -65,10 +65,10 @@ class Media_Reports(models.Model):
   """Placeholder. Needs to be modified. This class holds the reports on the media by users for violation of Terms of Use"""
   media = models.ForeignKey(Media)
   report = models.CharField(max_length=1000)
-  reported_by=models.ForeignKey(User, related_name='Reported By')
+  reported_by=models.ForeignKey(User, related_name='Reported_By')
   action_taken = models.BooleanField()
   action_desc = models.CharField(max_length=1000)
-  action_taken_by=models.ForeignKey(User, related_name='Action Taken By')
+  action_taken_by=models.ForeignKey(User, related_name='Action_Taken_By')
   create_date = models.DateTimeField(auto_now_add=True)
   update_date = models.DateTimeField(auto_now=True)
   
