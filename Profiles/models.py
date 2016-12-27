@@ -43,7 +43,7 @@ class ZipCodes(models.Model):
     zip_code = models.CharField(max_length=50, blank=True)
 
 
-class Profile(models.Model):
+class Profiles(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     uid = models.CharField(max_length=20, unique=True, default=None)
     bio = models.CharField(max_length=500, blank=True)

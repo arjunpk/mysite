@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
-from .models import Categories, Countries, States, Cities, ZipCodes, Profile
+from .models import Categories, Countries, States, Cities, ZipCodes, Profiles
 from django.contrib.auth.models import User
 from django.template import loader
 from django.http import HttpResponse, Http404
-
+from .forms import CreateBasicUserForm, SelectUserTypeForm
 
 
 def index(request):
@@ -53,14 +53,11 @@ def update_profile(request):
 # @transaction.atomic"""
 def detail(request, user_name_id):
     try:
-        user = User.objects.filter(username=user_name_id).select_related('profile')
+        user = User.objects.filter(username=user_name_id).select_related('Profiles')
     except User.DoesNotExist:
         try:
-            user = User.objects.all().select_related('profile').filter(uid=user_name_id)
+            user = User.objects.all().select_related('Profiles').filter(uid=user_name_id)
         except User.DoesNotExist:
             raise Http404
-    context={
-        "user" : user,
-    }
-    return render(request,'profiles/user_profile.html')
+    return render( request,'profiles/user_profile.html', {"user" : user} )
 
